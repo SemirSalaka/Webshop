@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %> trgovca</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %> trgovca</h1>
+
+    <form action="/registracija/registracijaTrgovca" method="post">
+      <label>Korisnicko ime:</label>
+      <input type="text" name="korisnicko_ime">
+      <br>
+      <label>Ime:</label>
+      <input type="text" name="ime">
+      <br>
+      <label>Prezime:</label>
+      <input type="text" name="prezime">
+      <br>
+      <label>Kontakt telefon:</label>
+      <input type="text" name="kontakt_telefon">
+      <br>
+      <label>Adresa sjedista:</label>
+      <input type="text" name="adresa_sjedista">
+      <br>
+      <label>Kategorija trgovine:</label>
+      <br>
+
+
+      <div class="input-group mb-3">
+        <% for (let i=0; i<kategorije.length; i++) { %>
+          <div class="input-group-text">
+            <input id="<%= kategorije[i].id %>" class="form-check-input mt-0 checkbox" type="checkbox"
+                   aria-label="Checkbox for following text input"
+                   onclick="vratiKategorije(<%= kategorije[i].id %>)" >
+
+            <label><%= kategorije[i].naziv_kategorije %></label>
+          </div>
+        <% } %>
+      </div>
+      <br>
+      <input id="text" style="display:none" id="kategorije" name="kategorije" value="" >
+
+
+      <br>
+      <label>E-mail:</label>
+      <input type="email" name="email">
+      <br>
+      <label>Lozinka:</label>
+      <input type="password" name="lozinka">
+      <button type="submit">Spasi</button>
+    </form>
+
+
+    <script>
+      var kategorije= [];
+
+      function vratiKategorije(id) {
+        var checkBox = document.getElementById(id);
+        var text = document.getElementById("text");
+
+        if(checkBox.checked){
+          kategorije.push(id);
+          document.getElementById(id).value = "true";
+        } else {
+          kategorije.splice(kategorije.indexOf(id), 1);
+        }
+
+        text.value = kategorije;
+        console.log(text.value);
+      }
+    </script>
+  </body>
+</html>

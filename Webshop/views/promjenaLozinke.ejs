@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Promjena sifre</h1>
+
+    <form action="/promjenaLozinke" method="post">
+      <label>Unesi novu lozinku:</label>
+      <input type="text" id="lozinka" name="lozinka">
+      <br>
+      <label>Ponovi unos nove lozinke:</label>
+      <input type="text" id="ponovljena_lozinka" name="ponovljena_lozinka">
+      <br>
+
+      <button type="submit" onclick="provjeraIstihLozinki()">Spasi</button>
+
+    </form>
+  <script>
+    function provjeraIstihLozinki() {
+      var lozinka = document.getElementById("lozinka").value;
+      var ponovljenaLozinka = document.getElementById("ponovljena_lozinka").value;
+
+      console.log(lozinka);
+      console.log(ponovljenaLozinka);
+      console.log(lozinka !== ponovljenaLozinka);
+      if(lozinka !== ponovljenaLozinka){
+
+        alert("Lozinke nisu iste!");
+        event.preventDefault();
+      }
+    }
+  </script>
+  </body>
+</html>

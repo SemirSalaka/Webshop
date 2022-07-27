@@ -1,0 +1,17 @@
+<form action="/artikli" method="get">
+    <input type="text" name="q" class="form-control web-search-box" placeholder="Naziv artikla" value=''>
+    <input type="submit" value="Trazi">
+</form>
+<input type="submit" value="Korpa" onclick="otvoriKorpu()">
+<br>
+<input type="submit" value="Logout" onclick="logout()">
+
+
+<script>
+    function otvoriKorpu() {
+        window.location = '/korpa' ;
+    }
+    function logout() {
+        window.location = '/logout' ;
+    }
+</script>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+  </head>
+  <body>
+    <h1>Uredi profil</h1>
+    <button onclick="location.href='http://localhost:3000/promjenaLozinke'">Promijeni lozinku</button>
+
+    <form action="/uredjivanjeProfila" method="post">
+      <p>dodavanje profilne slike</p>
+      <p>promjena pozadine</p>
+      <label>Unesi novo korisnicko ime:</label>
+      <input type="text" id="korisnicko_ime" name="korisnicko_ime" value="<%= podaciKorisnika[0].korisnicko_ime %>">
+      <br>
+      <label>Unesi novo ime:</label>
+      <input type="text" id="ime" name="ime" value="<%= podaciKorisnika[0].ime %>">
+      <br>
+      <label>Unesi novo prezime:</label>
+      <input type="text" id="prezime" name="prezime" value="<%= podaciKorisnika[0].prezime %>">
+      <br>
+      <label>Unesi novi email:</label>
+      <input type="text" id="email" name="email" value="<%= podaciKorisnika[0].email %>">
+      <br>
+      <label>Unesi novi broj telefona:</label>
+      <input type="number" id="broj_telefona" name="broj_telefona"
+             value="<%= podaciKorisnika[0].telefon %>"
+        >
+      <br>
+      <label>Unesi novu adresu sjedista:</label>
+      <input type="text" id="adresa_sjedista" name="adresa_sjedista" value="<%= podaciKorisnika[0].adresa_sjedista %>">
+      <br>
+      <button type="submit">Spasi</button>
+
+    </form>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Adresa poslovnice</th>
+        <th scope="col">Grad</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <%for (let i=0; i<adresePoslovnica.length; i++){%>
+        <tr>
+          <td><%= i+1 %></td>
+          <td>
+            <input type="text"
+                   value="<%=adresePoslovnica[i].adresa_poslovnice%>"
+                   name="adresa_poslovnice"
+                   id="poljeAdrese<%=adresePoslovnica[i].id%>">
+          </td>
+          <td>
+            <input type="text"
+                   value="<%=adresePoslovnica[i].grad%>"
+                   name="grad"
+                   id="poljeGrada<%=adresePoslovnica[i].id%>">
+          </td>
+          <td>
+            <button onclick="urediPoslovnicu('<%=adresePoslovnica[i].id%>')">
+              Uredi
+            </button>
+          </td>
+          <td onclick="obrisiAdresuPoslovnice('<%=adresePoslovnica[i].id%>')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+          </td>
+
+
+        </tr>
+      <%}%>
+    </table>
+
+    <script>
+      function urediPoslovnicu(adresa_id){
+        idAdrese = "poljeAdrese" + adresa_id;
+        idGrada = "poljeGrada" + adresa_id;
+
+        $.ajax({
+          url: "/adrese/update/" +
+                  adresa_id + "/" + document.getElementById(idAdrese).value +
+                  "/" + document.getElementById(idGrada).value,
+          data: {},
+          type: 'POST',
+          beforeSend: function () {
+          }
+        }).done(function (data){
+          alert("GOTOVO")
+        });
+      };
+      function obrisiAdresuPoslovnice(adresa_id){
+        idAdrese = "poljeAdrese" + adresa_id;
+        idGrada = "poljeGrada" + adresa_id;
+
+        $.ajax({
+          url: "/adrese/obrisi/" + adresa_id,
+          data: {},
+          type: 'POST',
+          beforeSend: function () {
+          }
+        }).done(function (data){
+          alert("GOTOVO")
+        });
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+
+
+  <%- include('./komponente/navbar') %>
+
+
+  <h1>Kupac pocetna</h1>
+  <br>
+  <br>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"><h4>Poruke</h4></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0; i<poruke.length; i++){ %>
+        <tr>
+          <td><%= poruke[i].poruka%></td>
+
+          <td>
+            <form action="/skloniPoruku?id=<%= poruke[i].id %>" method="post">
+              <button type="submit">Vidio</button>
+            </form>
+          </td>
+        </tr>
+
+      <% } %>
+    </tbody>
+  </table>
+
+  <br>
+  <button onclick="otvoriPretraguTrgovina()">Trazi kupce</button>
+  <% if (aktivnost === 'aktivan'){%>
+    <button onclick="otvoriNarudzbe()">Moje narudzbe</button>
+  <%}%>
+  <br>
+  <br>
+  <div class="list-group">
+    <a href="/kategorija?q=automobili" class="list-group-item list-group-item-action">Automobili</a>
+    <a href="/kategorija?q=mobiteli" class="list-group-item list-group-item-action">Mobiteli</a>
+    <a href="/sveKategorije" class="list-group-item list-group-item-action">Sve kategorije</a>
+  </div>
+
+  <br>
+    <h2>Najpopularniji artikli</h2>
+    <br>
+    <%for (let i=0; i<najpopularnijiArtikli.length; i++){%>
+      <div id="<%= najpopularnijiArtikli[i].id%>" onclick="otvoriArtikal(<%= najpopularnijiArtikli[i].id%>)">
+        <tr>
+          <td>
+            <img src="/images/artikal.jpg" class="img-thumbnail " alt="slika artikla" width="200" height="200">
+          </td>
+          <td>
+            <h3><%= najpopularnijiArtikli[i].naziv_artikla%></h3>
+            <br>
+            <p><%= najpopularnijiArtikli[i].opis%></p>
+          </td>
+          <td><%= najpopularnijiArtikli[i].cijena%></td>
+        </tr>
+      </div>
+    <%}%>
+
+    <h2>Slucajni artikli</h2>
+    <br>
+    <%for (let i=0; i<slucajnoOdabraniArtikli.length; i++){%>
+      <div id="<%= slucajnoOdabraniArtikli[i].id%>" onclick="otvoriArtikal(<%= slucajnoOdabraniArtikli[i].id%>)">
+        <tr>
+          <td>
+            <img src="/images/artikal.jpg" class="img-thumbnail " alt="slika artikla" width="200" height="200">
+          </td>
+          <td>
+            <h3><%= slucajnoOdabraniArtikli[i].naziv_artikla%></h3>
+            <br>
+            <p><%= slucajnoOdabraniArtikli[i].opis%></p>
+          </td>
+          <td><%= slucajnoOdabraniArtikli[i].cijena%></td>
+        </tr>
+      </div>
+   <%}%>
+
+    <h2>Artikli prema vasim interesima</h2>
+    <br>
+    <%for (let i=0; i<artikliPremaInteresima.length; i++){%>
+      <div id="<%= artikliPremaInteresima[i].id%>" onclick="otvoriArtikal(<%= artikliPremaInteresima[i].id%>)">
+        <tr>
+          <td>
+            <img src="/images/artikal.jpg" class="img-thumbnail " alt="slika artikla" width="200" height="200">
+          </td>
+          <td>
+            <h3><%= artikliPremaInteresima[i].naziv_artikla%></h3>
+            <br>
+            <p><%= artikliPremaInteresima[i].opis%></p>
+          </td>
+          <td><%= artikliPremaInteresima[i].cijena%></td>
+        </tr>
+      </div>
+    <%}%>
+
+  <script>
+    function otvoriArtikal(id) {
+      window.location = '/artikal/' + id ;
+      //location.href = 'http://your.url.here';
+    }
+    function otvoriPretraguTrgovina() {
+      window.location = '/pretragaTrgovina' ;
+    }
+    function otvoriNarudzbe() {
+      window.location = '/narudzbe' ;
+    }
+
+  </script>
+  </body>
+</html>

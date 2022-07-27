@@ -1,0 +1,24 @@
+body {
+  padding: 10px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.container {
+  justify-content: center;
+}
+
+.artikli{
+  width: 80%;
+}
+
+.korisnickiPodaci{
+}
+
+#glavneInformacijeArtikla{
+  background: blue;
+  justify-content: space-around;
+}

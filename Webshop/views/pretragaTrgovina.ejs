@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <h1>Pretraga trgovina</h1>
+    <br>
+
+    <input type="text" id="naziv" name="naziv" class="form-control web-search-box" placeholder="Naziv trgovine" value=''>
+    <button onclick="otvoriProfilTrgovca()">Trazi</button>
+
+
+    <script>
+      function otvoriProfilTrgovca() {
+        let naziv = document.getElementById('naziv').value
+        console.info(naziv);
+        window.location = '/trgovac/' + naziv;
+      }
+    </script>
+  </body>
+</html>
